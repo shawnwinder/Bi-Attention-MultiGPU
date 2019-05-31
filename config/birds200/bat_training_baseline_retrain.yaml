@@ -1,0 +1,43 @@
+name: "Bi-Attention"
+dataset_name: "birds200"
+
+# data
+train_data: "/mnt/disk1/zhibin/experiment_data/caffe2_lmdb/caltech_ucsd_200_2011_birds_encoded_train_lmdb"
+test_data: "/mnt/disk1/zhibin/experiment_data/caffe2_lmdb/caltech_ucsd_200_2011_birds_encoded_val_lmdb"
+init_net_pb: "/home/zhibin/qzhong/caffe2/caffe2_model_zoo/resnet50/resnet50_init_net.pb"
+db_type: "lmdb"
+num_channels: 3
+image_size: 448
+
+# model arch
+num_labels: 200
+
+# training setting
+gpus: "0,1,2,3"
+num_gpus: 3
+num_shards: 1
+shard_id: 0
+run_id: 
+model_parallel: false
+batch_size: 64
+epoch_size: 5994
+test_iters: 90
+num_epochs: 100
+
+# solver
+base_learning_rate: 0.01
+weight_decay: 0.0005
+
+# utils
+cudnn_workspace_limit_mb: 64
+redis_host: 
+redis_port: 6379
+file_store_path: "model/birds200/"
+save_model_name: "bat_birds200_resnet50"
+load_model_path: 
+use_cpu: false
+dtype: 'float'
+float16_compute: false
+enable_tensor_core: false
+distributed_transport: "tcp"
+distributed_interfaces: ""

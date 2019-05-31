@@ -1,0 +1,40 @@
+name: "bat_aircrafts100"
+
+model_arch:
+  # the total number of classes
+  num_classes: 100
+  r: 16  # SENet compression rate
+  feature_dim: 2048
+  attention_dim: 1024   # attention dimension, which means the bottom input dimension too
+  compact_dim: 4096  # compact feature dimention
+  # last_conv_size: 7  # hard coded number for last conv layer of Resnet50 output width & height
+  last_conv_size: 14  # hard coded number for last conv layer of Resnet50 output width & height
+
+training_data:
+  # the transformation for input data
+  input_transform:
+    scale: 512
+    batch_size: 16  # 64/num_gpus for multigpu
+    crop_size: 448
+
+evaluate_data: 
+  # the transformation for input data
+  input_transform:
+    scale: 512
+    batch_size: 16  # 64/num_gpus for multigpu
+    crop_size: 448
+
+# total num: 10000
+# training num: 6667
+# validation num: 3333
+# training-related parameters
+solver:
+  weight_decay: 0.00005
+  pc_weight: 0.005
+  # momentum sgd 
+  nesterov: 1
+  momentum: 0.9
+  # the learning rate policy, including step, fixed, exp, multistep, poly
+  lr_policy: "poly" 
+  power: 1.
+  max_iter: 60000
